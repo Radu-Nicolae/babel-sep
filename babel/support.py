@@ -11,7 +11,7 @@
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import annotations
-
+import babel.sep_coverage as sep
 import decimal
 import gettext
 import locale
@@ -630,7 +630,9 @@ class Translations(NullTranslations, gettext.GNUTranslations):
         :param fp: the file-like object the translation should be read from
         :param domain: the message domain (default: 'messages')
         """
+        sep.instrument(0)
         super().__init__(fp=fp)
+        sep.instrument(1)
         self.domain = domain or self.DEFAULT_DOMAIN
 
     ugettext = gettext.GNUTranslations.gettext
@@ -652,6 +654,7 @@ class Translations(NullTranslations, gettext.GNUTranslations):
         :param domain: the message domain (default: 'messages')
         """
         if not domain:
+            sep.instrument(2)
             domain = cls.DEFAULT_DOMAIN
         filename = gettext.find(domain, dirname, _locales_to_names(locales))
         if not filename:
