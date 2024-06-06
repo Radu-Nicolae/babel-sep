@@ -1,36 +1,45 @@
-code_set = set()
-
-
-def instrument(id):
-    code_set.add(id)
-
+code_set: set = set()
 
 """
-....
-@param max_instrument
-
-
+Instrument a line of code with a unique ID =
+Register the ID in a set, marking that line 
+of code as reached during execution.
 """
 
 
-def get_coverage(max_instrument):
-    list_sorted = sorted(code_set)
-    unaccessed_lines = []
-    last_item = -1
+def instrument(identifier: int) -> None:
+    code_set.add(identifier)
 
-    for item in list_sorted:
+
+"""
+Create a list of all instrumented lines of code that are never
+reached during execution.
+
+@param max_instrument: The maximum instrumented line ID for the code.
+@return 
+"""
+
+
+def get_coverage(max_instrument_id: int) -> list[int]:
+    sorted_ids = sorted(code_set)
+    unaccessed_line_ids : list = []
+    last_id = -1
+
+    for instrument_id in sorted_ids:
         # If no ID was skipped
-        if item - last_item == 1:
-            for i in range(last_item + 1, item):
-                unaccessed_lines.append(i)
+        if instrument_id - last_id == 1:
+            # Add all skipped IDs
+            for i in range(last_id + 1, instrument_id):
+                unaccessed_line_ids.append(i)
             continue
 
-        last_item = item
+        last_id = instrument_id
 
-    for i in range(last_item + 1, max_instrument + 1):
-        unaccessed_lines.append(i)
+    # Add all skipped ids until the last instrumented line
+    for i in range(last_id + 1, max_instrument_id + 1):
+        unaccessed_line_ids.append(i)
 
-    return unaccessed_lines
+    return unaccessed_line_ids
 
 
 """
