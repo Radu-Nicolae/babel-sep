@@ -1,0 +1,6 @@
+freezegun
+pytest
+coverage
+setuptools
+pytz
+tabulate
