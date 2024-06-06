@@ -42,4 +42,5 @@ Computes the coverage percentage of the instrumented code.
 
 def coverage_percentage(max_instrument):
     total_lines_of_code = max_instrument + 1
-    return (1 - len(get_coverage(max_instrument)) / total_lines_of_code) * 100
+    percentage = (1 - len(get_coverage(max_instrument)) / total_lines_of_code) * 100
+    return round(percentage, 2)
