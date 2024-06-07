@@ -29,6 +29,7 @@ except ModuleNotFoundError:
     import zoneinfo
 
 import datetime
+from coverage import instrument, CoverageEntity
 from collections.abc import Iterable
 
 from babel import localtime
@@ -673,15 +674,24 @@ def format_date(
                    date/time pattern
     :param locale: a `Locale` object or a locale identifier
     """
+    instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 0)
     if date is None:
+        instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 1)
         date = datetime.date.today()
     elif isinstance(date, datetime.datetime):
+        instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 2)
         date = date.date()
 
+    instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 3)
     locale = Locale.parse(locale)
+    instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 4)
     if format in ('full', 'long', 'medium', 'short'):
+        instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 5)
         format = get_date_format(format, locale=locale)
+
+    instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 6)
     pattern = parse_pattern(format)
+    instrument([CoverageEntity.DATES, CoverageEntity.FORMAT_DATE], 7)
     return pattern.apply(date, locale)
 
 
@@ -1300,7 +1310,6 @@ def parse_time(
 
 
 class DateTimePattern:
-
     def __init__(self, pattern: str, format: DateTimeFormat):
         self.pattern = pattern
         self.format = format
@@ -1309,7 +1318,9 @@ class DateTimePattern:
         return f"<{type(self).__name__} {self.pattern!r}>"
 
     def __str__(self) -> str:
+        instrument([CoverageEntity.DATES, CoverageEntity.DATETIMEPATTERN_STR], 8)
         pat = self.pattern
+        instrument([CoverageEntity.DATES, CoverageEntity.DATETIMEPATTERN_STR], 9)
         return pat
 
     def __mod__(self, other: DateTimeFormat) -> str:
@@ -1327,7 +1338,6 @@ class DateTimePattern:
 
 
 class DateTimeFormat:
-
     def __init__(
         self,
         value: datetime.date | datetime.time,

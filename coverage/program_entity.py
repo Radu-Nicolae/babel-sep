@@ -36,11 +36,11 @@ class CoverageEntity(enum.Enum):
     UNITS = Entity("babel/units.py", (0, 4))
 
     # ------------------------------------------------------------------------- #
-    #                          babel/messages/checkers.py                       #
+    #                               babel/dates.py                              #
     # ------------------------------------------------------------------------- #
-    CHECKERS = Entity("babel/messages/checkers.py", (0, 11))
-    PARSE = Entity("_parse", (0, 5), is_sub_entry=True)
-    COMPATIBLE = Entity("_compatible", (6, 11), is_sub_entry=True)
+    DATES = Entity("babel/dates.py", (0, 9))
+    FORMAT_DATE = Entity("format_date", (0, 7), is_sub_entry=True)
+    DATETIMEPATTERN_STR = Entity("DateTimePattern#str", (8, 9), is_sub_entry=True)
 
     # ------------------------------------------------------------------------- #
     #                    babel/localtime/_helpers.py                            #
@@ -50,3 +50,4 @@ class CoverageEntity(enum.Enum):
     GETTZINFO = Entity("_get_tzinfo", (3, 5), is_sub_entry=True)
     GETTZINFOORRAISE = Entity("get_tzinfo__or_raise", (6, 9), is_sub_entry=True)
     GETTZINFOFROMFILE = Entity("get_tzinfo_from_file", (9, 12), is_sub_entry=True)
+
