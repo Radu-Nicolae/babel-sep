@@ -404,12 +404,17 @@ class NullTranslations(gettext.NullTranslations):
         """Like ``lgettext()``, but look the message up in the specified
         domain.
         """
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 3)
         import warnings
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 4)
         warnings.warn(
             'ldgettext() is deprecated, use dgettext() instead',
             DeprecationWarning,
             stacklevel=2,
         )
+
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 5)
+        
         return self._domains.get(domain, self).lgettext(message)
 
     def udgettext(self, domain: str, message: str) -> str:
@@ -431,12 +436,15 @@ class NullTranslations(gettext.NullTranslations):
         """Like ``lngettext()``, but look the message up in the specified
         domain.
         """
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 6)
         import warnings
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 7)
         warnings.warn(
             'ldngettext() is deprecated, use dngettext() instead',
             DeprecationWarning,
             stacklevel=2,
         )
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 8)
         return self._domains.get(domain, self).lngettext(singular, plural, num)
 
     def udngettext(self, domain: str, singular: str, plural: str, num: int) -> str:

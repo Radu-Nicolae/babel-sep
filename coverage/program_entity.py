@@ -26,7 +26,9 @@ class CoverageEntity(enum.Enum):
     # ------------------------------------------------------------------------- #
     #                               babel/support.py                            #
     # ------------------------------------------------------------------------- #
-    SUPPORT = Entity("babel/support.py", (0, 2))
+    SUPPORT = Entity("babel/support.py", (0, 5))
+    LDGETTEXT = Entity("ldgettext", (3, 5), is_sub_entry=True)
+    LDNGETTEXT = Entity("ldngettext", (6, 8), is_sub_entry=True)
 
     # ------------------------------------------------------------------------- #
     #                               babel/units.py                              #
