@@ -34,3 +34,10 @@ class CoverageEntity(enum.Enum):
     #                               babel/units.py                              #
     # ------------------------------------------------------------------------- #
     UNITS = Entity("babel/units.py", (0, 4))
+
+    # ------------------------------------------------------------------------- #
+    #                          babel/messages/checkers.py                       #
+    # ------------------------------------------------------------------------- #
+    CHECKERS = Entity("babel/messages/checkers.py", (0, 11))
+    PARSE = Entity("_parse", (0, 5), is_sub_entry=True)
+    COMPATIBLE = Entity("_compatible", (6, 11), is_sub_entry=True)

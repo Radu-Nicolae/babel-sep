@@ -9,8 +9,9 @@
     :copyright: (c) 2013-2024 by the Babel Team.
     :license: BSD, see LICENSE for more details.
 """
-from __future__ import annotations
 
+from __future__ import annotations
+from coverage import instrument, CoverageEntity
 from collections.abc import Callable
 
 from babel.messages.catalog import PYTHON_FORMAT, Catalog, Message, TranslationError
@@ -92,20 +93,37 @@ def _validate_format(format: str, alternative: str) -> None:
     """
 
     def _parse(string: str) -> list[tuple[str, str]]:
+        instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 0)
         result: list[tuple[str, str]] = []
+        instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 1)
+
         for match in PYTHON_FORMAT.finditer(string):
+            instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 2)
             name, format, typechar = match.groups()
+            instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 3)
             if typechar == '%' and name is None:
+                instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 4)
                 continue
             result.append((name, str(typechar)))
+            instrument([CoverageEntity.CHECKERS, CoverageEntity.PARSE], 5)
+
         return result
 
     def _compatible(a: str, b: str) -> bool:
+        instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 6)
+
         if a == b:
+            instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 7)
             return True
+
+        instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 8)
         for set in _string_format_compatibilities:
+            instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 9)
             if a in set and b in set:
+                instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 10)
                 return True
+
+        instrument([CoverageEntity.CHECKERS, CoverageEntity.COMPATIBLE], 11)
         return False
 
     def _check_positional(results: list[tuple[str, str]]) -> bool:
