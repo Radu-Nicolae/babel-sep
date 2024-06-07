@@ -414,7 +414,7 @@ class NullTranslations(gettext.NullTranslations):
         )
 
         instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 5)
-        
+
         return self._domains.get(domain, self).lgettext(message)
 
     def udgettext(self, domain: str, message: str) -> str:
@@ -730,10 +730,18 @@ def _locales_to_names(
                     this list can be either `Locale` objects or locale
                     strings)
     """
+
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 9)
     if locales is None:
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 10)
         return None
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 11)
     if isinstance(locales, Locale):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 12)
         return [str(locales)]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 13)
     if isinstance(locales, str):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 14)
         return [locales]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 15)
     return [str(locale) for locale in locales]
