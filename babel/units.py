@@ -41,16 +41,11 @@ def get_unit_name(
     :param locale: the `Locale` object or locale identifier
     :return: The unit display name, or None.
     """
-    instrument([CoverageEntity.UNITS], 0)
     locale = Locale.parse(locale)
-    instrument([CoverageEntity.UNITS], 1)
     unit = _find_unit_pattern(measurement_unit, locale=locale)
-    instrument([CoverageEntity.UNITS], 2)
     if not unit:
-        instrument([CoverageEntity.UNITS], 3)
         raise UnknownUnitError(unit=measurement_unit, locale=locale)
 
-    instrument([CoverageEntity.UNITS], 4)
     return locale.unit_display_names.get(unit, {}).get(length)
 
 
