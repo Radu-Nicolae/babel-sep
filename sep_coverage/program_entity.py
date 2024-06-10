@@ -42,7 +42,13 @@ class CoverageEntity(enum.Enum):
     #                    babel/localtime/_helpers.py                            #
     # ------------------------------------------------------------------------- #
 
-    HELPERS = Entity("babel/localtime/_helpers.py", (0,12))
+    HELPERS = Entity("babel/localtime/_helpers.py", (0, 12))
     GETTZINFO = Entity("_get_tzinfo", (3, 6), is_sub_entry=True)
     GETTZINFOORRAISE = Entity("get_tzinfo_or_raise", (7, 9), is_sub_entry=True)
     GETTZINFOFROMFILE = Entity("get_tzinfo_from_file", (10, 12), is_sub_entry=True)
+
+    # ------------------------------------------------------------------------- #
+    #                    babel/util.py                                          #
+    # ------------------------------------------------------------------------- #
+    UTIL = Entity("babel/util.py", (0, 8))
+    FIXED_OFFSET_TIMEZONE = Entity("FixedOffsetTimezone", (0, 8), is_sub_entry=True)

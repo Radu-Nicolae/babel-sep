@@ -9,6 +9,7 @@
 """
 from __future__ import annotations
 
+from sep_coverage import instrument, CoverageEntity
 import codecs
 import collections
 import datetime
@@ -201,8 +202,8 @@ def pathmatch(pattern: str, filename: str) -> bool:
 
 class TextWrapper(textwrap.TextWrapper):
     wordsep_re = re.compile(
-        r'(\s+|'                                  # any whitespace
-        r'(?<=[\w\!\"\'\&\.\,\?])-{2,}(?=\w))',   # em-dash
+        r'(\s+|'  # any whitespace
+        r'(?<=[\w\!\"\'\&\.\,\?])-{2,}(?=\w))',  # em-dash
     )
 
 
@@ -231,25 +232,34 @@ class FixedOffsetTimezone(datetime.tzinfo):
     """Fixed offset in minutes east from UTC."""
 
     def __init__(self, offset: float, name: str | None = None) -> None:
-
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 0)
         self._offset = datetime.timedelta(minutes=offset)
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 1)
         if name is None:
+            instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 2)
             name = 'Etc/GMT%+d' % offset
+
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 3)
         self.zone = name
 
     def __str__(self) -> str:
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 4)
         return self.zone
 
     def __repr__(self) -> str:
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 5)
         return f'<FixedOffset "{self.zone}" {self._offset}>'
 
     def utcoffset(self, dt: datetime.datetime) -> datetime.timedelta:
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 6)
         return self._offset
 
     def tzname(self, dt: datetime.datetime) -> str:
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 7)
         return self.zone
 
     def dst(self, dt: datetime.datetime) -> datetime.timedelta:
+        instrument([CoverageEntity.UTIL, CoverageEntity.FIXED_OFFSET_TIMEZONE], 8)
         return ZERO
 
 
