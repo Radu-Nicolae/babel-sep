@@ -3,7 +3,6 @@ from datetime import datetime
 import babel.dates as dates
 
 def test_format_date():
-    # put 0d like 07
     assert dates.format_date(locale="en") == datetime.now().strftime("%b %-d, %Y")
 
 
