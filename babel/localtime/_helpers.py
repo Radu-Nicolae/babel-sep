@@ -1,60 +1,57 @@
 try:
     import pytz
-    import sep_coverage
     from sep_coverage import instrument, CoverageEntity
-    instrument([CoverageEntity.HELPERS], 0)
 except ModuleNotFoundError:
-    instrument([CoverageEntity.HELPERS], 1)
     pytz = None
     import zoneinfo
-    instrument([CoverageEntity.HELPERS], 2)
-
 
 def _get_tzinfo(tzenv: str):
-    """Get the tzinfo from `zoneinfo` or `pytz`
+    """
+    Get the tzinfo from `zoneinfo` or `pytz`
     
     :param tzenv: timezone in the form of Continent/City
     :return: tzinfo object or None if not found
     """
-    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 3)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 1)
     if pytz:
-        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 4)
+        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 2)
         try:
             return pytz.timezone(tzenv)
         except pytz.UnknownTimeZoneError:
             pass
     else:
-        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 5)
+        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 3)
         try:
             return zoneinfo.ZoneInfo(tzenv)
         except zoneinfo.ZoneInfoNotFoundError:
             pass
     
-    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 6)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFO], 4)
     return None
 
 def _get_tzinfo_or_raise(tzenv: str):
-    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 7)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 5)
     tzinfo = _get_tzinfo(tzenv)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 6)
     if tzinfo is None:
-        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 8)
+        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 7)
         raise LookupError(
             f"Can not find timezone {tzenv}. \n"
             "Timezone names are generally in the form `Continent/City`.",
         )
-    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 9)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 8)
     return tzinfo
 
 
 def _get_tzinfo_from_file(tzfilename: str):
-    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 10)
+    instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOFROMFILE], 9)
     
     with open(tzfilename, 'rb') as tzfile:
-        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 11)
+        instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOFROMFILE], 10)
 
         if pytz:
-            instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOORRAISE], 12)
-
+            instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOFROMFILE], 11)
             return pytz.tzfile.build_tzinfo('local', tzfile)
         else:
+            instrument([CoverageEntity.HELPERS, CoverageEntity.GETTZINFOFROMFILE], 12)
             return zoneinfo.ZoneInfo.from_file(tzfile)

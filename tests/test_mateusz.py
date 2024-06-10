@@ -1,6 +1,7 @@
 from babel.localtime import _helpers
 import pytest
-import pytz
+import pytest
+import zoneinfo as zoneinfo
 
 def test_get_tzinfo_or_raise():
 
@@ -16,9 +17,25 @@ def test_get_tzinfo_or_raise():
     assert tzinfo is not None
     assert tzinfo.zone == "America/New_York"
 
-
 def test_get_tzinfo():
-    pass
 
+    _helpers.zoneinfo = zoneinfo
+    _helpers.pytz = None
+    tzenv = "Continent/City"
+    assert _helpers._get_tzinfo(tzenv) is None
+     
 def test_get_tzinfo_from_file():
-    pass
+    
+    with pytest.raises(FileNotFoundError):
+        _helpers._get_tzinfo_from_file("tzfilename")
+    
+    with open("example.txt", 'w') as f:
+        f.write("America/New_York")
+
+    with pytest.raises(ValueError):
+        _helpers._get_tzinfo_from_file("example.txt")
+
+    _helpers.pytz = True
+    with pytest.raises(AttributeError):
+        _helpers._get_tzinfo_from_file("example.txt")
+  
