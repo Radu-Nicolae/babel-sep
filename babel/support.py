@@ -11,7 +11,6 @@
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import annotations
-from sep_coverage import CoverageEntity, instrument
 import decimal
 import gettext
 import locale
@@ -404,16 +403,12 @@ class NullTranslations(gettext.NullTranslations):
         """Like ``lgettext()``, but look the message up in the specified
         domain.
         """
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 3)
         import warnings
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 4)
         warnings.warn(
             'ldgettext() is deprecated, use dgettext() instead',
             DeprecationWarning,
             stacklevel=2,
         )
-
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDGETTEXT], 5)
 
         return self._domains.get(domain, self).lgettext(message)
 
@@ -436,15 +431,12 @@ class NullTranslations(gettext.NullTranslations):
         """Like ``lngettext()``, but look the message up in the specified
         domain.
         """
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 6)
         import warnings
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 7)
         warnings.warn(
             'ldngettext() is deprecated, use dngettext() instead',
             DeprecationWarning,
             stacklevel=2,
         )
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LDNGETTEXT], 8)
         return self._domains.get(domain, self).lngettext(singular, plural, num)
 
     def udngettext(self, domain: str, singular: str, plural: str, num: int) -> str:
@@ -641,10 +633,7 @@ class Translations(NullTranslations, gettext.GNUTranslations):
         :param fp: the file-like object the translation should be read from
         :param domain: the message domain (default: 'messages')
         """
-
-        instrument([CoverageEntity.SUPPORT], 0)
         super().__init__(fp=fp)
-        instrument([CoverageEntity.SUPPORT], 1)
         self.domain = domain or self.DEFAULT_DOMAIN
 
     ugettext = gettext.GNUTranslations.gettext
@@ -666,7 +655,6 @@ class Translations(NullTranslations, gettext.GNUTranslations):
         :param domain: the message domain (default: 'messages')
         """
         if not domain:
-            instrument([CoverageEntity.SUPPORT], 2)
             domain = cls.DEFAULT_DOMAIN
         filename = gettext.find(domain, dirname, _locales_to_names(locales))
         if not filename:
@@ -731,17 +719,10 @@ def _locales_to_names(
                     strings)
     """
 
-    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 9)
     if locales is None:
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 10)
         return None
-    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 11)
     if isinstance(locales, Locale):
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 12)
         return [str(locales)]
-    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 13)
     if isinstance(locales, str):
-        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 14)
         return [locales]
-    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 15)
     return [str(locale) for locale in locales]

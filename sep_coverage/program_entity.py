@@ -24,14 +24,6 @@ class CoverageEntity(enum.Enum):
     """
 
     # ------------------------------------------------------------------------- #
-    #                               babel/support.py                            #
-    # ------------------------------------------------------------------------- #
-    SUPPORT = Entity("babel/support.py", (0, 15))
-    LDGETTEXT = Entity("ldgettext", (3, 5), is_sub_entry=True)
-    LDNGETTEXT = Entity("ldngettext", (6, 8), is_sub_entry=True)
-    LOCALES_TO_NAMES = Entity("_locales_to_names", (9, 15), is_sub_entry=True)
-
-    # ------------------------------------------------------------------------- #
     #                               babel/dates.py                              #
     # ------------------------------------------------------------------------- #
     DATES = Entity("babel/dates.py", (0, 35))
