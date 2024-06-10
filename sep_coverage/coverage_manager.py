@@ -12,7 +12,7 @@ The key is the entity and the value is a set of identifiers (integers).
 The set contains the identifiers of the statements that were reached.
 """
 code_coverage: dict[CoverageEntity, set[int]] = {entity: set() for entity in list(CoverageEntity)}
-2
+
 
 def instrument(entities: list[CoverageEntity], identifier: int) -> None:
     """
