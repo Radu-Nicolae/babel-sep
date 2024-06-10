@@ -29,7 +29,7 @@ coverage_sep:
 	. ./venv/bin/activate && python3 sep_coverage.py
 
 coverage_extern:
-	. ./non-sep-venv/bin/activate && coverage run -m pytest && coverage report
+	. ./non-sep-venv/bin/activate && coverage run --omit='sep_coverage/*','tests/*' -m pytest && coverage report
 
 
 
