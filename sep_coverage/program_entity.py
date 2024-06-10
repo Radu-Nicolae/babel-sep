@@ -34,9 +34,12 @@ class CoverageEntity(enum.Enum):
     # ------------------------------------------------------------------------- #
     #                               babel/dates.py                              #
     # ------------------------------------------------------------------------- #
-    DATES = Entity("babel/dates.py", (0, 9))
+    DATES = Entity("babel/dates.py", (0, 35))
     FORMAT_DATE = Entity("format_date", (0, 7), is_sub_entry=True)
     DATETIMEPATTERN_STR = Entity("DateTimePattern#str", (8, 9), is_sub_entry=True)
+
+    GET_DATE = Entity("_get_time", (10, 22), is_sub_entry=True)
+    GET_TIMEZONE = Entity("get_timezone", (23, 35), is_sub_entry=True)
 
     # ------------------------------------------------------------------------- #
     #                    babel/localtime/_helpers.py                            #
