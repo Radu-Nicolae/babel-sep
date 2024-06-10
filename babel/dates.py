@@ -21,6 +21,7 @@ import re
 import warnings
 from functools import lru_cache
 from typing import TYPE_CHECKING, SupportsInt
+from sep_coverage import instrument, CoverageEntity
 
 try:
     import pytz
@@ -201,22 +202,35 @@ def _get_time(
     :param time: time, datetime or None
     :rtype: time
     """
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 10)
     if time is None:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 11)
         time = datetime.datetime.now(UTC)
     elif isinstance(time, (int, float)):
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 12)
         time = datetime.datetime.fromtimestamp(time, UTC)
 
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 13)
     if time.tzinfo is None:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 14)
         time = time.replace(tzinfo=UTC)
 
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 15)
     if isinstance(time, datetime.datetime):
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 16)
         if tzinfo is not None:
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 17)
             time = time.astimezone(tzinfo)
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 18)
             if hasattr(tzinfo, 'normalize'):  # pytz
+                instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 19)
                 time = tzinfo.normalize(time)
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 20)
         time = time.timetz()
     elif tzinfo is not None:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 21)
         time = time.replace(tzinfo=tzinfo)
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_DATE], 22)
     return time
 
 
@@ -232,23 +246,36 @@ def get_timezone(zone: str | datetime.tzinfo | None = None) -> datetime.tzinfo:
     :param zone: the name of the timezone to look up.  If a timezone object
                  itself is passed in, it's returned unchanged.
     """
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 23)
     if zone is None:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 24)
         return LOCALTZ
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 25)
     if not isinstance(zone, str):
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 26)
         return zone
 
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 27)
     if pytz:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 28)
         try:
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 29)
             return pytz.timezone(zone)
         except pytz.UnknownTimeZoneError as e:
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 30)
             exc = e
     else:
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 31)
         assert zoneinfo
+        instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 32)
         try:
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 33)
             return zoneinfo.ZoneInfo(zone)
         except zoneinfo.ZoneInfoNotFoundError as e:
+            instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 34)
             exc = e
-
+        
+    instrument([CoverageEntity.DATES, CoverageEntity.GET_TIMEZONE], 35)
     raise LookupError(f"Unknown timezone {zone}") from exc
 
 
