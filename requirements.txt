@@ -1,4 +1,5 @@
 freezegun
+coverage
 pytest
 setuptools
 pytz
