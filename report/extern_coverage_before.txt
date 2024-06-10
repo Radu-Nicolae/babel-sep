@@ -2,13 +2,13 @@ Name                                    Stmts   Miss  Cover
 -----------------------------------------------------------
 babel/__init__.py                           3      0   100%
 babel/core.py                             353     12    97%
-babel/dates.py                            705     91    87%
+babel/dates.py                            732    106    86%
 babel/languages.py                         16      0   100%
 babel/lists.py                             21      0   100%
 babel/localedata.py                       121      6    95%
 babel/localtime/__init__.py                12      3    75%
 babel/localtime/_fallback.py               22     11    50%
-babel/localtime/_helpers.py                41     28    32%
+babel/localtime/_helpers.py                39     28    28%
 babel/localtime/_unix.py                   52     36    31%
 babel/localtime/_win32.py                  54     40    26%
 babel/messages/__init__.py                  2      0   100%
@@ -23,9 +23,9 @@ babel/messages/pofile.py                  311     14    95%
 babel/messages/setuptools_frontend.py      20      8    60%
 babel/numbers.py                          434      9    98%
 babel/plural.py                           287     10    97%
-babel/support.py                          274     61    78%
+babel/support.py                          257     57    78%
 babel/units.py                             70      0   100%
-babel/util.py                             112      3    97%
+babel/util.py                             122      6    95%
 conftest.py                                13      0   100%
 -----------------------------------------------------------
-TOTAL                                    4508    476    89%
+TOTAL                                    4526    490    89%

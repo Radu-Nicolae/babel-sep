@@ -1,0 +1,18 @@
+. ./venv/bin/activate && python3 sep_coverage.py
+Running tests...
++-----------------------------+---------+------+-------+
+|            Name             | Reached | Miss | Cover |
++-----------------------------+---------+------+-------+
+|       babel/dates.py        |   32    |  4   |  88%  |
+|        * format_date        |    8    |  0   | 100%  |
+|    * DateTimePattern#str    |    2    |  0   | 100%  |
+|         * _get_time         |   13    |  0   | 100%  |
+|       * get_timezone        |    9    |  4   |  69%  |
+| babel/localtime/_helpers.py |   12    |  0   | 100%  |
+|        * _get_tzinfo        |    4    |  0   | 100%  |
+|    * get_tzinfo_or_raise    |    4    |  0   | 100%  |
+|   * get_tzinfo_from_file    |    4    |  0   | 100%  |
+|        babel/util.py        |    9    |  0   | 100%  |
+|    * FixedOffsetTimezone    |    9    |  0   | 100%  |
+|            Total            |   53    |  4   |  92%  |
++-----------------------------+---------+------+-------+
