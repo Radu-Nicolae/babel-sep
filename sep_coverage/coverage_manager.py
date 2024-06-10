@@ -1,4 +1,4 @@
-from coverage.program_entity import CoverageEntity
+from sep_coverage.program_entity import CoverageEntity
 from tabulate import tabulate
 import pytest
 import sys

@@ -42,8 +42,7 @@ class CoverageEntity(enum.Enum):
     #                    babel/localtime/_helpers.py                            #
     # ------------------------------------------------------------------------- #
 
-    HELPERS = Entity("babel/localtime/_helpers.py", (0,12))
+    HELPERS = Entity("babel/localtime/_helpers.py", (0, 12))
     GETTZINFO = Entity("_get_tzinfo", (3, 5), is_sub_entry=True)
     GETTZINFOORRAISE = Entity("get_tzinfo__or_raise", (6, 9), is_sub_entry=True)
     GETTZINFOFROMFILE = Entity("get_tzinfo_from_file", (9, 12), is_sub_entry=True)
-

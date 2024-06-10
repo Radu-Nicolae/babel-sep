@@ -1,5 +1,5 @@
 from __future__ import annotations
-from coverage import instrument, CoverageEntity
+from sep_coverage import instrument, CoverageEntity
 import decimal
 from typing import TYPE_CHECKING
 

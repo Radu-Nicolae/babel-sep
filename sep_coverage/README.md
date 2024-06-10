@@ -82,7 +82,7 @@ identifier. It is crucial for the parameters of `instrument` to follow the follo
 ### Example Instrumentation
 
 ```python
-from coverage import instrument, CoverageEntity
+from sep_coverage import instrument, CoverageEntity
 
 instrument([CoverageEntity.UNITS], 0)
 locale = Locale.parse(locale)
@@ -104,7 +104,7 @@ return locale.unit_display_names.get(unit, {}).get(length)
 Start by importing the coverage module:
 
 ```python
-import coverage
+import sep_coverage
 ```
 
 Afterward, you can run all the tests to generate coverage data by executing `coverage.run()`.
@@ -113,7 +113,7 @@ Printing the data is simply done by calling `coverage.print_all()`.
 ### Example Program
 
 ```python
-from coverage import run, print_all
+from sep_coverage import run, print_all
 
 
 def main():
@@ -162,7 +162,7 @@ following keys:
 ### Example Program
 
 ```python
-from coverage import run, get_coverage_data, CoverageEntity
+from sep_coverage import run, get_coverage_data, CoverageEntity
 
 
 def main():

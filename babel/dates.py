@@ -29,7 +29,7 @@ except ModuleNotFoundError:
     import zoneinfo
 
 import datetime
-from coverage import instrument, CoverageEntity
+from sep_coverage import instrument, CoverageEntity
 from collections.abc import Iterable
 
 from babel import localtime

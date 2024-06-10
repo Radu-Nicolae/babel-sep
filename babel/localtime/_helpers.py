@@ -1,7 +1,7 @@
 try:
     import pytz
-    import coverage
-    from coverage import instrument, CoverageEntity
+    import sep_coverage
+    from sep_coverage import instrument, CoverageEntity
     instrument([CoverageEntity.HELPERS], 0)
 except ModuleNotFoundError:
     instrument([CoverageEntity.HELPERS], 1)

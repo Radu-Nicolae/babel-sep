@@ -22,10 +22,14 @@ tox-test:
 
 setup_sep:
 	virtualenv venv > /dev/null
+	cp -r sep_coverage venv/lib/python3.12/site-packages/
 	(. ./venv/bin/activate && pip install -r requirements.txt && export PYTHONPATH=$(realpath venv/lib/python3.12/site-packages/) && python setup.py import_cldr && pip install --editable .) > /dev/null 2>&1
 
-sep_coverage:
+coverage_sep:
 	. ./venv/bin/activate && python3 sep_coverage.py
+
+coverage_extern:
+	. ./non-sep-venv/bin/activate && coverage run -m pytest && coverage report
 
 
 

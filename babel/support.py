@@ -11,7 +11,7 @@
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import annotations
-from coverage import CoverageEntity, instrument
+from sep_coverage import CoverageEntity, instrument
 import decimal
 import gettext
 import locale

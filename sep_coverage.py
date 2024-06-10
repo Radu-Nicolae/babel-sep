@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from coverage import run, print_all
+from sep_coverage import run, print_all
 
 
 def main():
