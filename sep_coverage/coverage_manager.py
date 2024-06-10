@@ -162,7 +162,7 @@ def print_all():
     Print the coverage data for all entities in a tabular format.
     """
 
-    HEADERS = ["Name", "Stmts", "Miss", "Cover"]
+    HEADERS = ["Name", "Reached", "Miss", "Cover"]
     data = []
 
     for entity in code_coverage.keys():
