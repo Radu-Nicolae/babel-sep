@@ -2,7 +2,7 @@
 
 # Assignment 1 - Testing
 
-The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/groups/365690)'s project for the first assignment of the **Software Engineering Processes (XB_0089)** course
+The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/groups/365690)'s project for the first assignment of the **Software Engineering Processes (XB_0089)** course.
 
 ## Table of contents
 
@@ -13,10 +13,14 @@ The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/g
 | [3.3 Coverage Improvement](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.2-coverage-measurement)  |                                                                                                                                                                                             |
 | [3.4 Report](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.4-report-readme.md)                    | [README.md](README.md)                                                                                                                                                                      |
 
+<br>
+
 ## Project choice
 
-The project of choice is [Babel](https://github.com/python-babel/babel). Latest release of the project at the time of writing is [v2.15.0](https://github.com/python-babel/babel/releases/tag/v2.15.0).
-> Babel is a Python library that provides an integrated collection of utilities that assist with internationalizing and localizing Python applications (in particular web-based applications.)
+The project of choice is [Babel](https://github.com/python-babel/babel). Latest release of the project as of Jun 11th, 2024, is [v2.15.0](https://github.com/python-babel/babel/releases/tag/v2.15.0).
+> _"Babel is a Python library that provides an integrated collection of utilities that assist with internationalizing and localizing Python applications (in particular web-based applications.)"
+> 
+> from Babel's README.md
 
 | Requirement                     |                                   Babel                                   |
 |---------------------------------|:-------------------------------------------------------------------------:|
@@ -24,18 +28,18 @@ The project of choice is [Babel](https://github.com/python-babel/babel). Latest 
 | Open Source License             |        [BSD-3-Clause](https://opensource.org/license/bsd-3-clause)        |
 | Automated unit tests            | [Test Directory](https://github.com/python-babel/babel/tree/master/tests) |
 | Existing branch coverage < 100% |                                    89%                                    |
-| Contributors                    |                                    150                                    |
+| Contributors                    |                                 150                                       |
 | Lines of code                   |                   17 KLOC <br>11 KLOC (excluding tests)                   |
+
+<br> 
 
 ## Executing (external) coverage tool
 
-We aim to calculate the project's total coverage using the `coverage.py` tool.
-To do this, we first set up the project's environment, following its [documentation](https://babel.pocoo.org/en/latest/installation.html#living-on-the-edge) and install the necessary [dependencies](requirements.txt).
+We calculate the project's total coverage using the `coverage.py` tool.
+We first set up the project's environment, following its [documentation](https://babel.pocoo.org/en/latest/installation.html#living-on-the-edge) and install the necessary [dependencies](requirements.txt).
 
 ### Setup
 
-> **TL;DR** - Setup
->
 > ```bash
 > make setup_sep
 > ```
@@ -49,8 +53,8 @@ To do this, we first set up the project's environment, following its [documentat
 
 A virtual environment _venv_ is required to run coverage. We first installed `virtualenv` and `pip` using each operating system's package manager (either [brew](https://brew.sh/) or [pacman](https://wiki.archlinux.org/title/pacman)).
 
-After that, we copy the local package _sep_coverage_ (created by ourselves) to the virtual environment's site-packages directory.
-An explanation for this will come in the [Own coverage tool](#executing-our-own-coverage-tool) section.
+After that, we copy the local package _sep_coverage_ (created by ourselves) to the virtual environment's site-packages directory (further expanded in [Own coverage tool](#executing-our-own-coverage-tool) section).
+
 
 > ⚠️ **WARNING**: The setup assumes that the latest version of python (3.12) is installed on the system, as well as the `virtualenv` and `pip` packages. If this is not the case, the setup will fail.
 
@@ -65,8 +69,7 @@ The entire process is summed up in the `setup_sep` target of the [Makefile](Make
 
 ### Running
 
-> **TL;DR** - Running
->
+
 > ```bash
 > make coverage_extern
 >```
@@ -83,8 +86,7 @@ The coverage.py tool has a `run` command that runs the coverage test and a `repo
 These two commands will represent our two-step process in running the coverage.
 
 The `run` command takes one argument, `--omit`, which is used to specify which files to omit from the coverage report and another argument `-m pytest` to run the tests using the pytest module.
-We are using pytest to run the tests that generate the coverage for the project, because
-it is the testing framework used by the project itself.
+We are using pytest to run the tests that generate the coverage for the project. Pytest is also the testing framework used by the project itself.
 
 **IMPORTANT**: We omit the files in the `sep_coverage/` package and the `tests/` directory from the coverage report. This is because the sep_coverage package is our own coverage tool, and the tests directory contains are not of interest for the purposes of coverage, _as the tests themselves generate the coverage_. We are only interested in the coverage of the `babel` package.
 
@@ -102,13 +104,13 @@ The entire result file, containing coverage data for every single file in the pr
 |------------------|--------------|----------|
 | 4526             | 490          | 89.17%   |
 
+<br> 
+
 ## Executing (our own) coverage tool
 
 We create our own coverage tool, `sep_coverage`, using **manual instrumentation** to measure the coverage of _some parts_ of the project.
 The tool is documented under [sep_coverage/README.md](sep_coverage/README.md).
 
-> **TL;DR** - Running
->
 > ⚙️ **Prerequisite**: [Setup](#setup) (only has to be done once)
 >
 > ```bash
@@ -120,6 +122,7 @@ The tool is documented under [sep_coverage/README.md](sep_coverage/README.md).
 > ```
 > [➡️ Skip to results](#results-1)
 
+
 ### Breakdown of the tool
 
 The **sep_coverage** tool is built as a python package under the `sep_coverage/` directory.
@@ -129,13 +132,15 @@ At each `instrument()` call, the tool stores the identifier of the statement in 
 Each entity is indexed in [sep_coverage/program_entity.py](sep_coverage/program_entity.py), containing a range of statements that it covers.
 
 After execution, we can use the set of each entity to calculate how many statements were reached, as the length of the set.
-The total number of statements is simply equal to the upper bound of the range, minus the lower bound plus one.
+The total number of statements is equal to the upper bound of the range, minus the lower bound plus one.
 
 We can use this information to calculate the coverage of each entity, given the following formula, where C = coverage, M = total statements, N = total missed statements:
 
 <div style="text-align:center"><img alt="formula" src="https://latex.codecogs.com/png.image?\LARGE&space;\dpi{110}\bg{white}C=\frac{T-M}{T}"/></div>
 
 When the tool is run, the coverage test is executed, and then the coverage data is printed to _stdout_.
+
+<br> 
 
 ### Methodology of instrumentation
 
@@ -166,6 +171,8 @@ The coverage report generated by our tool, before the coverage improvement can b
 
 Since we are only instrumenting a small part of the project, the coverage **is expected to be low**.
 We specifically targeted parts of the code that were not covered by the tests, in order to work on improving coverage in the next step.
+
+<br>
 
 ## Instrumentation
 
