@@ -17,6 +17,7 @@ import locale
 import os
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, Callable, Iterable
+from sep_coverage import instrument, CoverageEntity
 
 from babel.core import Locale
 from babel.dates import format_date, format_datetime, format_time, format_timedelta
@@ -719,10 +720,17 @@ def _locales_to_names(
                     strings)
     """
 
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 0)
     if locales is None:
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 1)
         return None
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 2)
     if isinstance(locales, Locale):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 3)
         return [str(locales)]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 4)
     if isinstance(locales, str):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 5)
         return [locales]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 6)
     return [str(locale) for locale in locales]

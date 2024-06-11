@@ -3,6 +3,8 @@ Running tests...
 +-----------------------------+---------+------+-------+
 |            Name             | Reached | Miss | Cover |
 +-----------------------------+---------+------+-------+
+|      babel/support.py       |    4    |  3   |  57%  |
+|     * _locales_to_names     |    4    |  3   |  57%  |
 |       babel/dates.py        |   24    |  12  |  66%  |
 |        * format_date        |    7    |  1   |  87%  |
 |    * DateTimePattern#str    |    0    |  2   |  0%   |
@@ -14,5 +16,5 @@ Running tests...
 |   * get_tzinfo_from_file    |    0    |  4   |  0%   |
 |        babel/util.py        |    6    |  3   |  66%  |
 |    * FixedOffsetTimezone    |    6    |  3   |  66%  |
-|            Total            |   32    |  25  |  56%  |
+|            Total            |   36    |  28  |  56%  |
 +-----------------------------+---------+------+-------+

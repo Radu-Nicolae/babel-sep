@@ -23,9 +23,9 @@ babel/messages/pofile.py                  311     14    95%
 babel/messages/setuptools_frontend.py      20      8    60%
 babel/numbers.py                          434      9    98%
 babel/plural.py                           287     10    97%
-babel/support.py                          257     54    79%
+babel/support.py                          265     54    80%
 babel/units.py                             70      0   100%
 babel/util.py                             122      0   100%
 conftest.py                                13      0   100%
 -----------------------------------------------------------
-TOTAL                                    4526    439    90%
+TOTAL                                    4534    439    90%

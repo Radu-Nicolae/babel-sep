@@ -19,7 +19,7 @@ The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/g
 
 The project of choice is [Babel](https://github.com/python-babel/babel). Latest release of the project as of Jun 11th, 2024, is [v2.15.0](https://github.com/python-babel/babel/releases/tag/v2.15.0).
 > _"Babel is a Python library that provides an integrated collection of utilities that assist with internationalizing and localizing Python applications (in particular web-based applications.)"
-> 
+>
 > from Babel's README.md
 
 | Requirement                     |                                   Babel                                   |
@@ -28,7 +28,7 @@ The project of choice is [Babel](https://github.com/python-babel/babel). Latest 
 | Open Source License             |        [BSD-3-Clause](https://opensource.org/license/bsd-3-clause)        |
 | Automated unit tests            | [Test Directory](https://github.com/python-babel/babel/tree/master/tests) |
 | Existing branch coverage < 100% |                                    89%                                    |
-| Contributors                    |                                 150                                       |
+| Contributors                    |                                    150                                    |
 | Lines of code                   |                   17 KLOC <br>11 KLOC (excluding tests)                   |
 
 <br> 
@@ -68,7 +68,6 @@ The entire process is summed up in the `setup_sep` target of the [Makefile](Make
 ![Proof Makefile](https://i.imgur.com/QFELCcQ.png)
 
 ### Running
-
 
 > ```bash
 > make coverage_extern
@@ -122,7 +121,6 @@ The tool is documented under [sep_coverage/README.md](sep_coverage/README.md).
 > ```
 > [➡️ Skip to results](#results-1)
 
-
 ### Breakdown of the tool
 
 The **sep_coverage** tool is built as a python package under the `sep_coverage/` directory.
@@ -139,8 +137,6 @@ We can use this information to calculate the coverage of each entity, given the 
 <div style="text-align:center"><img alt="formula" src="https://latex.codecogs.com/png.image?\LARGE&space;\dpi{110}\bg{white}C=\frac{T-M}{T}"/></div>
 
 When the tool is run, the coverage test is executed, and then the coverage data is printed to _stdout_.
-
-<br> 
 
 ### Methodology of instrumentation
 
@@ -176,7 +172,54 @@ We specifically targeted parts of the code that were not covered by the tests, i
 
 ## Instrumentation
 
+| Member  | Entities Instrumented                                                                                                                                               | Total lines of code |
+|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
+| Daniel  | [FixedOffsetTimezone](babel/util.py) <br> [_locales_to_names()](babel/support.py)                                                                                   | 14                  |
+| Gleb    | [get_timezone()](babel/dates.py) <br> [_get_time()](babel/dates.py)                                                                                                 | 26                  |                                                         
+| Mateusz | [_get_tzinfo()](babel/localtime/_helpers.py) <br> [_get_tzinfo_or_raise()](babel/localtime/_helpers.py) <br> [_get_tzinfo_from_file()](babel/localtime/_helpers.py) | 49                  |
+| Radu    | [format_date()](babel/dates.py) <br> [\_\_str\_\_()](babel/dates.py)                                                                                                | 38                  |                                                                             
+
+### Instrumentation proofs
+
+<details>
+<summary>Daniel Halasz</summary>
+
+![_locales_to_names()](https://i.imgur.com/PmQVeqt.png)
+![_FixedOffsetTimezone](https://i.imgur.com/PmQVeqt.png)
+
+</details>
+
+<details>
+<summary>Mateusz Kwiatkowski</summary>
+
+![]()
+![_FixedOffsetTimezone]()
+
+</details>
+
+<details>
+<summary>Radu Nicolae</summary>
+
+![format_date()](https://i.imgur.com/a04oABT.png)
+![\_\_str()\_\_](https://i.imgur.com/2bl5gUS.png)
+
+</details>
+
+<details>
+<summary>Gleb Mishchenko</summary>
+
+![get_timezone()](https://i.imgur.com/vrlfXoo.png)
+![_get_time()](https://i.imgur.com/NAIQ5tJ.png)
+
+</details>
+
+### Measurement proofs
+
+![Coverage measurement](https://i.imgur.com/k82uZJg.png)
+
 [//]: # (TODO:)
+
 [//]: # (2. Instrumentation of functions for coverage measurement There is evidence code diff + screenshot of the results that each student measured the coverage of 2 functions.)
+
 [//]: # (3. Functionality of the instrumentation for coverage measurement There is evidence execution during the presentation that the instrumentation of each group member works)
 
