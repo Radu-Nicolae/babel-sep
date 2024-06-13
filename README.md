@@ -9,8 +9,8 @@ The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/g
 | Task                                                                                                                                   | Sections                                                                                                                                                                                    |
 |----------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [3.1. Project Choice](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.1-project-choice)             | [Project choice](#project-choice)                                                                                                                                                           |
-| [3.2. Coverage Measurement](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.2-coverage-measurement) | [Executing (external) coverage tool](#executing-external-coverage-tool) <br> [Executing (our own) coverage tool](#executing-our-own-coverage-tool) <br> [Instrumentation](#instrumentation) |
-| [3.3 Coverage Improvement](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.2-coverage-measurement)  |                                                                                                                                                                                             |
+| [3.2. Coverage Measurement](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.2-coverage-measurement) | [Executing (external) coverage tool](#executing-external-coverage-tool) <br> <sub><sup> [4.1 Execution of existing coverage measurement tool](#41-execution-of-existing-coverage-measurement-tool) </sup></sub> <br> [Instrumentation](#instrumentation) <br> <sub><sup>[4.2 Instrumentation of functions for coverage measurement](#42-instrumentation-of-functions-for-coverage-measurement) </sup></sub> <br> [Executing (our own) coverage tool](#executing-our-own-coverage-tool) <br> <sub><sup>[4.3 Functionality of the instrumentation for coverage measurement](#43-functionality-of-the-instrumentation-for-coverage-measurement) </sup></sub>|
+| [3.3 Coverage Improvement](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.2-coverage-measurement) | [Tests overview](#tests-overview) <br><sub><sup>[4.4 Creation/enhancement of new tests](#44-creationenhancement-of-new-tests) </sup></sub> <br>  <sub><sup>[4.5 Functionality of the new/enhanced tests](#45-functionality-of-the-newenhanced-tests) </sup></sub> <br> [Overall coverage improvement](#overall-coverage-improvement) <br> <sub><sup>[4.6 Effectiveness of each new/enhanced test in improving coverage](#46-effectiveness-of-each-newenhanced-test-in-improving-coverage) </sup></sub> <br>  <sub><sup>[4.7 Overall improvement in coverage](#47-overall-improvement-in-coverage)</sup></sub>|  <br> |                                                                                                                                                                                             |
 | [3.4 Report](https://sep-vu.gitbook.io/software-engineering-processes/assignment-1-testing#id-3.4-report-readme.md)                    | [README.md](README.md)                                                                                                                                                                      |
 
 <br>
@@ -34,6 +34,7 @@ The project of choice is [Babel](https://github.com/python-babel/babel). Latest 
 <br> 
 
 ## Executing (external) coverage tool
+### 4.1 Execution of existing coverage measurement tool
 
 We calculate the project's total coverage using the `coverage.py` tool.
 We first set up the project's environment, following its [documentation](https://babel.pocoo.org/en/latest/installation.html#living-on-the-edge) and install the necessary [dependencies](requirements.txt).
@@ -106,6 +107,7 @@ The entire result file, containing coverage data for every single file in the pr
 <br> 
 
 ## Executing (our own) coverage tool
+### 4.3 Functionality of the instrumentation for coverage measurement
 
 We create our own coverage tool, `sep_coverage`, using **manual instrumentation** to measure the coverage of _some parts_ of the project.
 The tool is documented under [sep_coverage/README.md](sep_coverage/README.md).
@@ -171,7 +173,7 @@ We specifically targeted parts of the code that were not covered by the tests, i
 <br>
 
 ## Instrumentation
-
+### 4.2 Instrumentation of functions for coverage measurement
 | Member  | Entities Instrumented                                                                                                                                               | Total lines of code |
 |---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
 | Daniel  | [FixedOffsetTimezone](babel/util.py) <br> [_locales_to_names()](babel/support.py)                                                                                   | 14                  |
@@ -192,8 +194,9 @@ We specifically targeted parts of the code that were not covered by the tests, i
 <details>
 <summary>Mateusz Kwiatkowski</summary>
 
-![]()
-![_FixedOffsetTimezone]()
+![_get_tzinfo](https://i.imgur.com/3SMtCA3.png)
+![_get_tzinfo_or_raise](https://i.imgur.com/bVsJHiQ.png)
+![_get_tzinfo_from_file](https://i.imgur.com/eR4xsh1.png)
 
 </details>
 
@@ -223,3 +226,89 @@ We specifically targeted parts of the code that were not covered by the tests, i
 
 [//]: # (3. Functionality of the instrumentation for coverage measurement There is evidence execution during the presentation that the instrumentation of each group member works)
 
+## Coverage improvement
+### Tests overview
+---
+### 4.4 Creation/enhancement of new tests
+Below is the evidence (code) that each student created/enhanced 2 tests, repsectively to their instrumented functions.
+
+<details>
+<summary>Daniel Halasz</summary>
+
+![_locales_to_names()](https://i.imgur.com/lcX4vSU.png)
+
+</details>
+
+<details>
+<summary>Mateusz Kwiatkowski</summary>
+
+![test_get_tzinfo](https://i.imgur.com/VkMSyW8.png)
+![test_get_tzinfo_from_file](https://i.imgur.com/fs4rgSQ.png)
+
+</details>
+
+<details>
+<summary>Radu Nicolae</summary>
+
+![format_date()](https://i.imgur.com/BiEKBcb.png)
+
+</details>
+
+<details>
+<summary>Gleb Mishchenko</summary>
+
+![get_timezone()](https://i.imgur.com/A7YLS2J.png)
+
+</details>
+
+### 4.5 Functionality of the new/enhanced tests
+### General approach
+
+Each team member after instrumenting their respective functions, and after looking at the coverage report of generated by `coverage.py` implemented specific tests to increase the coverage of these functions. 
+
+Each function got tested in a distinct, specific way, unique to its purpose. For example in `tests_mateusz.py` the coverage of the _get_tzinfo_or_raise() function is achieved by making sure certain `errors` and `assertions` are raised (or not). 
+
+```python
+    with pytest.raises(LookupError):
+        _helpers._get_tzinfo_or_raise("Continent/City")
+
+    tzinfo = _helpers._get_tzinfo_or_raise("America/New_York")
+    assert tzinfo is not None
+    assert tzinfo.zone == "America/New_York"
+```
+
+This method allowed each team member to successfully increase the overall coverage of their chosen functions, as, for example, more statements and if-else branches are reached after implementing the tests. 
+
+The correctness of our tests is presented with the following screenshot, after running `pytest` with the new tests.
+
+![pytest](https://i.imgur.com/SnlE65A.png)
+
+### Overall coverage improvement
+---
+### 4.6 Effectiveness of each new/enhanced test in improving coverage
+
+
+The coverage report generated by our tool before the coverage improvement is summarized in the following table
+
+| Total Statements | Total Missed | Coverage |
+|------------------|--------------|----------|
+| 57               | 25           | 56.14%   |
+
+
+Since we specifically targeted parts of the code that were not covered by the general tests, and each team member managed to increase their instrumented function coverage almost to its fullest, we report the following coverage **after** implementing the enhanced tests
+
+| Total Statements | Total Missed | Coverage |
+|------------------|--------------|----------|
+| 57               | 4           | 92.98%   |
+
+This improvement is also showcased in the following screenshot. After running the suggested tool, `coverage.py`, on the initial directory and the directory with the ehnanced tests, we compared the two reports with `diff`. 
+
+![effectiv](https://i.imgur.com/GUptPa8.png)
+### 4.7 Overall improvement in coverage
+With this we conclude that the total overall improvement that we reached amounted to **1.12%**. The following screenshots of running `coverage.py` without and with the enhanced tests show the total coverage measured before and after.
+
+## Before
+![before](https://i.imgur.com/2R85Tkt.png)
+
+## After
+![after](https://i.imgur.com/gOt8paA.png)
