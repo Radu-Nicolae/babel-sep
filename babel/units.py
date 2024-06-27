@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from sep_coverage import instrument, CoverageEntity
 import decimal
 from typing import TYPE_CHECKING
 
@@ -16,9 +16,9 @@ class UnknownUnitError(ValueError):
 
 
 def get_unit_name(
-    measurement_unit: str,
-    length: Literal['short', 'long', 'narrow'] = 'long',
-    locale: Locale | str | None = LC_NUMERIC,
+        measurement_unit: str,
+        length: Literal['short', 'long', 'narrow'] = 'long',
+        locale: Locale | str | None = LC_NUMERIC,
 ) -> str | None:
     """
     Get the display name for a measurement unit in the given locale.
@@ -45,6 +45,7 @@ def get_unit_name(
     unit = _find_unit_pattern(measurement_unit, locale=locale)
     if not unit:
         raise UnknownUnitError(unit=measurement_unit, locale=locale)
+
     return locale.unit_display_names.get(unit, {}).get(length)
 
 
@@ -76,13 +77,13 @@ def _find_unit_pattern(unit_id: str, locale: Locale | str | None = LC_NUMERIC) -
 
 
 def format_unit(
-    value: str | float | decimal.Decimal,
-    measurement_unit: str,
-    length: Literal['short', 'long', 'narrow'] = 'long',
-    format: str | None = None,
-    locale: Locale | str | None = LC_NUMERIC,
-    *,
-    numbering_system: Literal["default"] | str = "latn",
+        value: str | float | decimal.Decimal,
+        measurement_unit: str,
+        length: Literal['short', 'long', 'narrow'] = 'long',
+        format: str | None = None,
+        locale: Locale | str | None = LC_NUMERIC,
+        *,
+        numbering_system: Literal["default"] | str = "latn",
 ) -> str:
     """Format a value of a given unit.
 
@@ -159,9 +160,9 @@ def format_unit(
 
 
 def _find_compound_unit(
-    numerator_unit: str,
-    denominator_unit: str,
-    locale: Locale | str | None = LC_NUMERIC,
+        numerator_unit: str,
+        denominator_unit: str,
+        locale: Locale | str | None = LC_NUMERIC,
 ) -> str | None:
     """
     Find a predefined compound unit pattern.
@@ -211,15 +212,15 @@ def _find_compound_unit(
 
 
 def format_compound_unit(
-    numerator_value: str | float | decimal.Decimal,
-    numerator_unit: str | None = None,
-    denominator_value: str | float | decimal.Decimal = 1,
-    denominator_unit: str | None = None,
-    length: Literal["short", "long", "narrow"] = "long",
-    format: str | None = None,
-    locale: Locale | str | None = LC_NUMERIC,
-    *,
-    numbering_system: Literal["default"] | str = "latn",
+        numerator_value: str | float | decimal.Decimal,
+        numerator_unit: str | None = None,
+        denominator_value: str | float | decimal.Decimal = 1,
+        denominator_unit: str | None = None,
+        length: Literal["short", "long", "narrow"] = "long",
+        format: str | None = None,
+        locale: Locale | str | None = LC_NUMERIC,
+        *,
+        numbering_system: Literal["default"] | str = "latn",
 ) -> str | None:
     """
     Format a compound number value, i.e. "kilometers per hour" or similar.

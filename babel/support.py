@@ -11,13 +11,13 @@
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import annotations
-
 import decimal
 import gettext
 import locale
 import os
 from collections.abc import Iterator
 from typing import TYPE_CHECKING, Any, Callable, Iterable
+from sep_coverage import instrument, CoverageEntity
 
 from babel.core import Locale
 from babel.dates import format_date, format_datetime, format_time, format_timedelta
@@ -50,11 +50,11 @@ class Format:
     """
 
     def __init__(
-        self,
-        locale: Locale | str,
-        tzinfo: datetime.tzinfo | None = None,
-        *,
-        numbering_system: Literal["default"] | str = "latn",
+            self,
+            locale: Locale | str,
+            tzinfo: datetime.tzinfo | None = None,
+            *,
+            numbering_system: Literal["default"] | str = "latn",
     ) -> None:
         """Initialize the formatter.
 
@@ -68,9 +68,9 @@ class Format:
         self.numbering_system = numbering_system
 
     def date(
-        self,
-        date: datetime.date | None = None,
-        format: _PredefinedTimeFormat | str = 'medium',
+            self,
+            date: datetime.date | None = None,
+            format: _PredefinedTimeFormat | str = 'medium',
     ) -> str:
         """Return a date formatted according to the given pattern.
 
@@ -82,9 +82,9 @@ class Format:
         return format_date(date, format, locale=self.locale)
 
     def datetime(
-        self,
-        datetime: datetime.date | None = None,
-        format: _PredefinedTimeFormat | str = 'medium',
+            self,
+            datetime: datetime.date | None = None,
+            format: _PredefinedTimeFormat | str = 'medium',
     ) -> str:
         """Return a date and time formatted according to the given pattern.
 
@@ -97,9 +97,9 @@ class Format:
         return format_datetime(datetime, format, tzinfo=self.tzinfo, locale=self.locale)
 
     def time(
-        self,
-        time: datetime.time | datetime.datetime | None = None,
-        format: _PredefinedTimeFormat | str = 'medium',
+            self,
+            time: datetime.time | datetime.datetime | None = None,
+            format: _PredefinedTimeFormat | str = 'medium',
     ) -> str:
         """Return a time formatted according to the given pattern.
 
@@ -112,12 +112,12 @@ class Format:
         return format_time(time, format, tzinfo=self.tzinfo, locale=self.locale)
 
     def timedelta(
-        self,
-        delta: datetime.timedelta | int,
-        granularity: Literal["year", "month", "week", "day", "hour", "minute", "second"] = "second",
-        threshold: float = 0.85,
-        format: Literal["narrow", "short", "medium", "long"] = "long",
-        add_direction: bool = False,
+            self,
+            delta: datetime.timedelta | int,
+            granularity: Literal["year", "month", "week", "day", "hour", "minute", "second"] = "second",
+            threshold: float = 0.85,
+            format: Literal["narrow", "short", "medium", "long"] = "long",
+            add_direction: bool = False,
     ) -> str:
         """Return a time delta according to the rules of the given locale.
 
@@ -150,10 +150,10 @@ class Format:
         return format_decimal(number, format, locale=self.locale, numbering_system=self.numbering_system)
 
     def compact_decimal(
-        self,
-        number: float | decimal.Decimal | str,
-        format_type: Literal['short', 'long'] = 'short',
-        fraction_digits: int = 0,
+            self,
+            number: float | decimal.Decimal | str,
+            format_type: Literal['short', 'long'] = 'short',
+            fraction_digits: int = 0,
     ) -> str:
         """Return a number formatted in compact form for the locale.
 
@@ -177,11 +177,11 @@ class Format:
         return format_currency(number, currency, locale=self.locale, numbering_system=self.numbering_system)
 
     def compact_currency(
-        self,
-        number: float | decimal.Decimal | str,
-        currency: str,
-        format_type: Literal['short'] = 'short',
-        fraction_digits: int = 0,
+            self,
+            number: float | decimal.Decimal | str,
+            currency: str,
+            format_type: Literal['short'] = 'short',
+            fraction_digits: int = 0,
     ) -> str:
         """Return a number in the given currency formatted for the locale
         using the compact number format.
@@ -371,7 +371,6 @@ class LazyProxy:
 
 
 class NullTranslations(gettext.NullTranslations):
-
     if TYPE_CHECKING:
         _info: dict[str, str]
         _fallback: NullTranslations | None
@@ -411,6 +410,7 @@ class NullTranslations(gettext.NullTranslations):
             DeprecationWarning,
             stacklevel=2,
         )
+
         return self._domains.get(domain, self).lgettext(message)
 
     def udgettext(self, domain: str, message: str) -> str:
@@ -418,6 +418,7 @@ class NullTranslations(gettext.NullTranslations):
         domain.
         """
         return self._domains.get(domain, self).ugettext(message)
+
     # backward compatibility with 0.9
     dugettext = udgettext
 
@@ -444,6 +445,7 @@ class NullTranslations(gettext.NullTranslations):
         domain.
         """
         return self._domains.get(domain, self).ungettext(singular, plural, num)
+
     # backward compatibility with 0.9
     dungettext = udngettext
 
@@ -581,6 +583,7 @@ class NullTranslations(gettext.NullTranslations):
         `domain`.
         """
         return self._domains.get(domain, self).upgettext(context, message)
+
     # backward compatibility with 0.9
     dupgettext = udpgettext
 
@@ -604,6 +607,7 @@ class NullTranslations(gettext.NullTranslations):
         """
         return self._domains.get(domain, self).unpgettext(context, singular,
                                                           plural, num)
+
     # backward compatibility with 0.9
     dunpgettext = udnpgettext
 
@@ -638,10 +642,10 @@ class Translations(NullTranslations, gettext.GNUTranslations):
 
     @classmethod
     def load(
-        cls,
-        dirname: str | os.PathLike[str] | None = None,
-        locales: Iterable[str | Locale] | str | Locale | None = None,
-        domain: str | None = None,
+            cls,
+            dirname: str | os.PathLike[str] | None = None,
+            locales: Iterable[str | Locale] | str | Locale | None = None,
+            domain: str | None = None,
     ) -> NullTranslations:
         """Load translations from the given directory.
 
@@ -707,7 +711,7 @@ class Translations(NullTranslations, gettext.GNUTranslations):
 
 
 def _locales_to_names(
-    locales: Iterable[str | Locale] | str | Locale | None,
+        locales: Iterable[str | Locale] | str | Locale | None,
 ) -> list[str] | None:
     """Normalize a `locales` argument to a list of locale names.
 
@@ -715,10 +719,18 @@ def _locales_to_names(
                     this list can be either `Locale` objects or locale
                     strings)
     """
+
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 0)
     if locales is None:
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 1)
         return None
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 2)
     if isinstance(locales, Locale):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 3)
         return [str(locales)]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 4)
     if isinstance(locales, str):
+        instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 5)
         return [locales]
+    instrument([CoverageEntity.SUPPORT, CoverageEntity.LOCALES_TO_NAMES], 6)
     return [str(locale) for locale in locales]

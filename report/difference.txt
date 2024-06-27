@@ -1,0 +1,20 @@
+5c5
+< babel/dates.py                            732    106    86%
+---
+> babel/dates.py                            732     89    88%
+11c11
+< babel/localtime/_helpers.py                39     28    28%
+---
+> babel/localtime/_helpers.py                39      3    92%
+26c26
+< babel/support.py                          265     60    77%
+---
+> babel/support.py                          265     54    80%
+28c28
+< babel/util.py                             122      6    95%
+---
+> babel/util.py                             122      0   100%
+31c31
+< TOTAL                                    4534    493    89%
+---
+> TOTAL                                    4534    439    90%
