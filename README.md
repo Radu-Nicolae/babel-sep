@@ -4,6 +4,8 @@
 
 The current project is the sum of all work of [_Group 7_](https://canvas.vu.nl/groups/365690)'s project for the first assignment of the **Software Engineering Processes (XB_0089)** course.
 
+The presentation of the project in Google Slides is available [here](https://docs.google.com/presentation/d/15BjP3BdKf-idsQpiZxpE2ipv24Csj1lQmtNdSsQj4L8/edit#slide=id.g2e48b51bef8_0_224).
+
 ## Table of contents
 
 | Task                                                                                                                                   | Sections                                                                                                                                                                                    |
